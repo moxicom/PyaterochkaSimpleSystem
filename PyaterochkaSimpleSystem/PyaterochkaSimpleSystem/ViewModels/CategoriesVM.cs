@@ -14,7 +14,7 @@ namespace PyaterochkaSimpleSystem.ViewModels
 
 
         // Categories
-        public CategoriesVM() : base(ListTypes.Categories) 
+        public CategoriesVM(MainWindowVM mainWindowVM) : base(ListTypes.Categories, mainWindowVM) 
         { 
             ReloadData();
         }

@@ -23,7 +23,7 @@ namespace PyaterochkaSimpleSystem.ViewModels
         private ObservableCollection<T> _items;
 
         // Constructor
-        public BaseListVM(ListTypes listType)
+        public BaseListVM(ListTypes listType, MainWindowVM mainWindowVM)
         {
             _items = new ObservableCollection<T>();
             AddCommand = new RelayCommand(AddItem);
@@ -42,6 +42,7 @@ namespace PyaterochkaSimpleSystem.ViewModels
         public ICommand RemoveCommand { get; }
         public ICommand UpdateCommand { get; }
         public ICommand ReloadItemsCommand { get; }
+        protected MainWindowVM mainWindowVM { get; }
 
         public ObservableCollection<T> Items
         {

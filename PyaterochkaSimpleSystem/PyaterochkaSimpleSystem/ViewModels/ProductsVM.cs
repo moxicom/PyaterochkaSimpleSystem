@@ -11,7 +11,7 @@ namespace PyaterochkaSimpleSystem.ViewModels
     internal class ProductsVM : BaseListVM<Product>
     {
 
-        public ProductsVM() : base(ListTypes.Products)
+        public ProductsVM(MainWindowVM mainWindowVM) : base(ListTypes.Products, mainWindowVM)
         {
             
         }

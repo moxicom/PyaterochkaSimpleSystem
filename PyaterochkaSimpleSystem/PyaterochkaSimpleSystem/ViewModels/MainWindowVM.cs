@@ -17,12 +17,10 @@ namespace PyaterochkaSimpleSystem.ViewModels
     {
         // Fields
         private ViewModelBase _currentVM;
-        private readonly CategoriesVM _categoriesVM;
 
         // Constructor
         public MainWindowVM()
         {
-            _categoriesVM = new CategoriesVM();
             HomeBtnCommand = new RelayCommand(OpenHome);
             TestCommand = new RelayCommand(OpenCategory);
             OpenHome();
@@ -46,7 +44,7 @@ namespace PyaterochkaSimpleSystem.ViewModels
         }
 
         // Methods
-        private void OpenHome() => CurrentVM = _categoriesVM;
-        private void OpenCategory() => CurrentVM = new ProductsVM();
+        public void OpenHome() => CurrentVM = new CategoriesVM(this);
+        public void OpenCategory() => CurrentVM = new ProductsVM(this);
     }
 }
