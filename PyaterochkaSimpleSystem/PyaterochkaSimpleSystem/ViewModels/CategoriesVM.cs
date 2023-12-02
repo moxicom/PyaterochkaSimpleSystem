@@ -1,4 +1,5 @@
-﻿using PyaterochkaSimpleSystem.Models;
+﻿using PyaterochkaSimpleSystem.Enums;
+using PyaterochkaSimpleSystem.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +14,7 @@ namespace PyaterochkaSimpleSystem.ViewModels
 
 
         // Categories
-        public CategoriesVM() : base() 
+        public CategoriesVM() : base(ListTypes.Categories) 
         { 
             ReloadData();
         }

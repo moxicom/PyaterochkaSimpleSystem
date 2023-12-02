@@ -1,4 +1,5 @@
-﻿using PyaterochkaSimpleSystem.Models;
+﻿using PyaterochkaSimpleSystem.Enums;
+using PyaterochkaSimpleSystem.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +11,7 @@ namespace PyaterochkaSimpleSystem.ViewModels
     internal class ProductsVM : BaseListVM<Product>
     {
 
-        public ProductsVM() : base()
+        public ProductsVM() : base(ListTypes.Products)
         {
             
         }

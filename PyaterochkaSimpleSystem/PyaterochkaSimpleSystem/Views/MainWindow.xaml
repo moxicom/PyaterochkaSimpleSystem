@@ -22,17 +22,32 @@
             Margin="30,0"
             FontSize="25"
             Text="Пятерочка" />
-        <Button
-            Width="100"
-            Height="30"
-            Margin="30,0"
-            HorizontalAlignment="Right"
-            Command="{Binding HomeBtnCommand}"
-            Content="На главную" />
+        <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+            <Button
+                Width="100"
+                Height="30"
+                Margin="30,0"
+                HorizontalAlignment="Right"
+                Command="{Binding HomeBtnCommand}"
+                Content="На главную" />
+
+            <Button
+                Width="100"
+                Height="30"
+                Margin="30,0"
+                HorizontalAlignment="Right"
+                Command="{Binding TestCommand}"
+                Content="Test" />
+        </StackPanel>
+
+
 
         <ContentControl Grid.Row="1" Content="{Binding CurrentVM}">
             <ContentControl.Resources>
                 <DataTemplate DataType="{x:Type viewmodels:CategoriesVM}">
+                    <views:CategoriesView />
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type viewmodels:ProductsVM}">
                     <views:CategoriesView />
                 </DataTemplate>
             </ContentControl.Resources>
