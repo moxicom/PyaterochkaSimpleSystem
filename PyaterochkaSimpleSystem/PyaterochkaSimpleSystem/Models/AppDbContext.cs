@@ -18,7 +18,8 @@ namespace PyaterochkaSimpleSystem.Models
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseNpgsql("your_connection_string");
+            // should push it to application.json
+            optionsBuilder.UseNpgsql("Host=localhost;Port=5432;Database=entity_test;Username=postgres;Password=314159");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
