@@ -1,4 +1,5 @@
 ﻿using PyaterochkaSimpleSystem.Models;
+using PyaterochkaSimpleSystem.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,7 +23,6 @@ namespace PyaterochkaSimpleSystem.Views
     {
         public StartWindow()
         {
-            
             InitializeComponent();
         }
     }

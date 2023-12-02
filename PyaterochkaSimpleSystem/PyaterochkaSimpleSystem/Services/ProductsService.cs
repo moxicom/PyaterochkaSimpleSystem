@@ -12,7 +12,7 @@ namespace PyaterochkaSimpleSystem.Services
 {
     internal class ProductsService
     {
-        public async Task<OperationResult<ObservableCollection<Product>>> GetProducts(Product product)
+        public async Task<OperationResult<ObservableCollection<Product>>> GetProductsAsync(Product product)
         {
             try
             {
@@ -32,7 +32,7 @@ namespace PyaterochkaSimpleSystem.Services
             }
         }
 
-        public async Task<OperationResult<bool>> UpdateProduct(Product product)
+        public async Task<OperationResult<bool>> UpdateProductAsync(Product product)
         {
             try
             {
@@ -61,7 +61,7 @@ namespace PyaterochkaSimpleSystem.Services
             }
         }
 
-        public async Task<OperationResult<bool>> InsertProduct(Product product)
+        public async Task<OperationResult<bool>> InsertProductAsync(Product product)
         {
             try
             {
@@ -80,7 +80,7 @@ namespace PyaterochkaSimpleSystem.Services
             }
         }
 
-        public async Task<OperationResult<bool>> Delete(int productId)
+        public async Task<OperationResult<bool>> DeleteProductAsync(int productId)
         {
             try
             {

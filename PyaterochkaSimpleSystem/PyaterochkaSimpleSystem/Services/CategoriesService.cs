@@ -1,4 +1,5 @@
-﻿using PyaterochkaSimpleSystem.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using PyaterochkaSimpleSystem.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,26 @@ namespace PyaterochkaSimpleSystem.Services
 {
     internal class CategoriesService
     {
+
+        public async Task<OperationResult<List<Category>>> GetCategoriesAsync()
+        {
+            try
+            {
+                using (var context = new AppDbContext())
+                {
+                    // Retrieve all categories from the Categories DbSet
+                    var categories = await context.Categories.ToListAsync();
+
+                    return OperationResult<List<Category>>.Success(categories);
+                }
+            }
+            catch (Exception ex)
+            {
+                // Return the error to the caller
+                return OperationResult<List<Category>>.Failure(ex);
+            }
+        }
+
         public async Task<OperationResult<bool>> InsertCategoryAsync(Category newCategory)
         {
             try
