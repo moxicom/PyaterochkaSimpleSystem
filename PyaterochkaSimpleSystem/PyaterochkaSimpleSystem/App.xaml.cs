@@ -1,5 +1,6 @@
 ﻿using dotenv.net;
-using PyaterochkaSimpleSystem.Utilities;
+using PyaterochkaSimpleSystem.ViewModels;
+using PyaterochkaSimpleSystem.Views;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -18,7 +19,12 @@ namespace PyaterochkaSimpleSystem
     {
         App()
         {
-            Run(new MainWindow());
+            var window = new StartWindow()
+            {
+                DataContext = new StartWindowVM()
+            };
+            Current.MainWindow = window;
+            Run(window);
         }
     }
 }

@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace PyaterochkaSimpleSystem
+namespace PyaterochkaSimpleSystem.Views
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Логика взаимодействия для CategoriesView.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class CategoriesView : UserControl
     {
-        public MainWindow()
+        public CategoriesView()
         {
             InitializeComponent();
         }
