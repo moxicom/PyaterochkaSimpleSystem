@@ -32,12 +32,12 @@
                 Content="На главную" />
 
             <Button
-                Width="100"
+                Width="150"
                 Height="30"
                 Margin="30,0"
                 HorizontalAlignment="Right"
-                Command="{Binding TestCommand}"
-                Content="Test" />
+                Command="{Binding ReloadItemsCommand}"
+                Content="Перезагрузить" />
         </StackPanel>
 
 

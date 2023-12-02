@@ -1,5 +1,6 @@
 ﻿using GalaSoft.MvvmLight.Command;
 using PyaterochkaSimpleSystem.Enums;
+using PyaterochkaSimpleSystem.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -8,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Interop;
 
 namespace PyaterochkaSimpleSystem.ViewModels
 {
@@ -15,6 +17,7 @@ namespace PyaterochkaSimpleSystem.ViewModels
     {
         // Fields
         private const string _loadingStatus = "Загрузка...";
+        private const string _requestErrorStatus = "Произошла ошибка при взаимодействии с базой данных";
         private T? _selectedItem;
         private bool _canReloadItems;
         private string _statusTextValue = string.Empty;
@@ -28,7 +31,7 @@ namespace PyaterochkaSimpleSystem.ViewModels
             _items = new ObservableCollection<T>();
             AddCommand = new RelayCommand(AddItem);
             RemoveCommand = new RelayCommand(RemoveItem, CanRemoveItem);
-            UpdateCommand = new RelayCommand(UpdateUser, CanUpdateUser);
+            UpdateCommand = new RelayCommand(UpdateUser, CanUpdateItem);
             ReloadItemsCommand = new RelayCommand(ReloadData, CanReloadItems);
             //if (listType == ListTypes.Products)
             //{
@@ -54,13 +57,13 @@ namespace PyaterochkaSimpleSystem.ViewModels
             }
         }
 
-        public T? SelectedUser
+        public T? SelectedItem
         {
             get { return _selectedItem; }
             set
             {
                 _selectedItem = value;
-                OnPropertyChanged(nameof(SelectedUser));
+                OnPropertyChanged(nameof(SelectedItem));
                 UpdateCommands();
             }
         }
@@ -108,15 +111,21 @@ namespace PyaterochkaSimpleSystem.ViewModels
         // Methods
         protected async void ReloadData()
         {
-            ShowStatus(_loadingStatus);
+            Items = null;
             CanReloadItems = false;
             await LoadData();
         }
 
         protected async Task LoadData()
         {
-
-            // MAKE A REQUEST TO LOAD DATA FROM DB
+            ShowStatus(_loadingStatus);
+            var result = await LoadDataRequest();
+            if (result.Error != null)
+            {
+                ShowStatus(_requestErrorStatus);
+                return;
+            }
+            Items = result.Result;
             ShowTable();
         }
 
@@ -125,6 +134,8 @@ namespace PyaterochkaSimpleSystem.ViewModels
         protected abstract void RemoveItem();
 
         protected abstract void UpdateUser();
+
+        protected abstract Task<OperationResult<ObservableCollection<T>>> LoadDataRequest();
 
         protected void ShowStatus(string statusText)
         {
@@ -139,9 +150,9 @@ namespace PyaterochkaSimpleSystem.ViewModels
             IsTableVisible = true;
         }
 
-        protected bool CanUpdateUser()
+        protected bool CanUpdateItem()
         {
-            if (SelectedUser == null)
+            if (SelectedItem == null)
             {
                 return false;
             }
@@ -153,7 +164,7 @@ namespace PyaterochkaSimpleSystem.ViewModels
 
         protected bool CanRemoveItem()
         {
-            if (SelectedUser == null)
+            if (SelectedItem == null)
             {
                 return false;
             }

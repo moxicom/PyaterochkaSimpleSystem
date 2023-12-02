@@ -2,6 +2,7 @@
 using PyaterochkaSimpleSystem.Models;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -29,6 +30,11 @@ namespace PyaterochkaSimpleSystem.ViewModels
         }
 
         protected override void UpdateUser()
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override Task<OperationResult<ObservableCollection<Product>>> LoadDataRequest()
         {
             throw new NotImplementedException();
         }

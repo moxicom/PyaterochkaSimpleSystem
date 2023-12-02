@@ -2,31 +2,35 @@
 using PyaterochkaSimpleSystem.Models;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace PyaterochkaSimpleSystem.Services
 {
     internal class CategoriesService
     {
 
-        public async Task<OperationResult<List<Category>>> GetCategoriesAsync()
+        public CategoriesService()
+        {
+
+        }
+
+        public async Task<OperationResult<ObservableCollection<Category>>> GetCategoriesAsync()
         {
             try
             {
                 using (var context = new AppDbContext())
                 {
-                    // Retrieve all categories from the Categories DbSet
-                    var categories = await context.Categories.ToListAsync();
-
-                    return OperationResult<List<Category>>.Success(categories);
+                    var categories = await Task.Run(() => context.Categories.ToListAsync());
+                    return OperationResult<ObservableCollection<Category>>.Success(new ObservableCollection<Category>(categories));
                 }
             }
             catch (Exception ex)
             {
-                // Return the error to the caller
-                return OperationResult<List<Category>>.Failure(ex);
+                return OperationResult<ObservableCollection<Category>>.Failure(ex);
             }
         }
 

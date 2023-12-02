@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
 namespace PyaterochkaSimpleSystem.ViewModels
@@ -23,6 +24,7 @@ namespace PyaterochkaSimpleSystem.ViewModels
         {
             HomeBtnCommand = new RelayCommand(OpenHome);
             TestCommand = new RelayCommand<int>(OpenCategory);
+            Application.Current.MainWindow.Loaded += MainWindow_Loaded;
             OpenHome();
         }
 
@@ -44,6 +46,11 @@ namespace PyaterochkaSimpleSystem.ViewModels
         }
 
         // Methods
+
+        private void MainWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            OpenHome();
+        }
         public void OpenHome() => CurrentVM = new CategoriesVM(this);
         public void OpenCategory(int id) => CurrentVM = new ProductsVM(id, this);
     }

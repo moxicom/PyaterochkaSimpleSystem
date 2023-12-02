@@ -12,23 +12,20 @@ namespace PyaterochkaSimpleSystem.Services
 {
     internal class ProductsService
     {
-        public async Task<OperationResult<ObservableCollection<Product>>> GetProductsAsync(Product product)
+        public async Task<OperationResult<List<Product>>> GetProductsAsync(Product product)
         {
             try
             {
-                ObservableCollection<Product> products;
-
                 using (var context = new AppDbContext())
                 {
-                    products = new ObservableCollection<Product>(
-                        await context.Products.ToListAsync());
-                }
+                    var products = await context.Products.ToListAsync();
 
-                return OperationResult<ObservableCollection<Product>>.Success(products);
+                    return OperationResult<List<Product>>.Success(products);
+                }
             }
             catch (Exception ex)
             {
-                return OperationResult<ObservableCollection<Product>>.Failure(ex);
+                return OperationResult<List<Product>>.Failure(ex);
             }
         }
 
