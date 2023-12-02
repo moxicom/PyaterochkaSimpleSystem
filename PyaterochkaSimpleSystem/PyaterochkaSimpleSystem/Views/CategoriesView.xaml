@@ -12,34 +12,32 @@
         <!--  /// Table ///  -->
         <Grid Grid.Row="1" Margin="50,10">
             <Grid.Resources>
-                <BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+                <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
             </Grid.Resources>
+
 
             <!--  /// Info ///  -->
             <TextBlock
                 Height="50"
                 VerticalAlignment="Top"
                 FontSize="22"
-                Foreground="#E9ECEF"
+                Foreground="Black"
                 Text="{Binding StatusTextValue}"
                 TextAlignment="Center"
-                Visibility="{Binding IsStatusTextVisible, Converter={StaticResource BoolToVisibilityConverter}}" />
+                Visibility="{Binding IsStatusTextVisible, Converter={StaticResource BooleanToVisibilityConverter}}" />
 
-            <StackPanel Visibility="{Binding IsTableVisible, Converter={StaticResource BoolToVisibilityConverter}}">
+            <StackPanel Visibility="{Binding IsTableVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
                 <!--  /// Table ///  -->
                 <ListView
                     x:Name="userListBox"
                     Height="390"
-                    ItemsSource="{Binding Users}"
-                    SelectedItem="{Binding SelectedUser, Mode=TwoWay}">
+                    ItemsSource="{Binding Items}"
+                    SelectedItem="{Binding SelectedItem, Mode=TwoWay}">
 
                     <ListView.View>
                         <GridView>
                             <GridViewColumn DisplayMemberBinding="{Binding Id}" Header="Id" />
-                            <GridViewColumn DisplayMemberBinding="{Binding Name}" Header="Name" />
-                            <GridViewColumn DisplayMemberBinding="{Binding Surname}" Header="Surname" />
-                            <GridViewColumn DisplayMemberBinding="{Binding Username}" Header="Username" />
-                            <GridViewColumn DisplayMemberBinding="{Binding Role}" Header="Role" />
+                            <GridViewColumn DisplayMemberBinding="{Binding Name}" Header="Название" />
                         </GridView>
                     </ListView.View>
 

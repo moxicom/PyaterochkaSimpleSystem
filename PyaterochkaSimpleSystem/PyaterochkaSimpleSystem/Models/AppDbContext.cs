@@ -24,10 +24,6 @@ namespace PyaterochkaSimpleSystem.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            //modelBuilder.Entity<Book>()
-            //    .HasOne(b => b.Author)
-            //    .WithMany(a => a.Books)
-            //    .HasForeignKey(b => b.AuthorId);
             modelBuilder.Entity<Product>()
                 .HasOne(p => p.Category)
                 .WithMany(p => p.Products)

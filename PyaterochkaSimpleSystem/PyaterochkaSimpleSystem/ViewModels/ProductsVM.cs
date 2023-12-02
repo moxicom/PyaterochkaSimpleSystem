@@ -7,35 +7,27 @@ using System.Threading.Tasks;
 
 namespace PyaterochkaSimpleSystem.ViewModels
 {
-    internal class CategoriesVM : BaseListVM<Category>
+    internal class ProductsVM : BaseListVM<Product>
     {
-        // Fields
 
-
-        // Categories
-        public CategoriesVM() : base() 
-        { 
-            ReloadData();
+        public ProductsVM() : base()
+        {
+            
         }
 
-        // Properties
-
-        // Methods
-
-        protected override async void AddItem()
+        protected override void AddItem()
         {
             throw new NotImplementedException();
         }
 
-        protected override async void RemoveItem()
+        protected override void RemoveItem()
         {
             throw new NotImplementedException();
         }
 
-        protected override async void UpdateUser()
+        protected override void UpdateUser()
         {
             throw new NotImplementedException();
         }
-
     }
 }

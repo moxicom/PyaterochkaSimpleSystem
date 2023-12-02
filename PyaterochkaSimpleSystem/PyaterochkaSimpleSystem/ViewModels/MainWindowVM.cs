@@ -17,29 +17,18 @@ namespace PyaterochkaSimpleSystem.ViewModels
     {
         // Fields
         private ViewModelBase _currentVM;
-        private bool _homeBtnEnabled;
         private readonly CategoriesVM _categoriesVM;
 
         // Constructor
         public MainWindowVM()
         {
             _categoriesVM = new CategoriesVM();
-            HomeBtnEnabled = false;
             HomeBtnCommand = new RelayCommand(OpenHome);
             OpenHome();
         }
 
         // Properties
         public ICommand HomeBtnCommand { get; }
-        public bool HomeBtnEnabled 
-        {
-            get => _homeBtnEnabled;
-            set
-            {
-                _homeBtnEnabled = value;
-                OnPropertyChanged();
-            }
-        }
 
         public ViewModelBase CurrentVM
         {

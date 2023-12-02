@@ -1,15 +1,17 @@
 ﻿using GalaSoft.MvvmLight.Command;
+using PyaterochkaSimpleSystem.Enums;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
 namespace PyaterochkaSimpleSystem.ViewModels
 {
-    internal class BaseListVM<T> : ViewModelBase
+    internal abstract class BaseListVM<T> : ViewModelBase
     {
         // Fields
         private const string _loadingStatus = "Загрузка...";
@@ -21,13 +23,18 @@ namespace PyaterochkaSimpleSystem.ViewModels
         private ObservableCollection<T> _items;
 
         // Constructor
-        public BaseListVM()
+        public BaseListVM(ListTypes listType)
         {
             _items = new ObservableCollection<T>();
             AddCommand = new RelayCommand(AddItem);
             RemoveCommand = new RelayCommand(RemoveItem, CanRemoveItem);
             UpdateCommand = new RelayCommand(UpdateUser, CanUpdateUser);
             ReloadItemsCommand = new RelayCommand(ReloadData, CanReloadItems);
+            if (listType == ListTypes.Products)
+            {
+                IsStatusTextVisible = true;
+                StatusTextValue = "PRODUCTSSSS";
+            }
         }
 
         // Properties
@@ -98,35 +105,27 @@ namespace PyaterochkaSimpleSystem.ViewModels
         }
 
         // Methods
-        private async void ReloadData()
+        protected async void ReloadData()
         {
             ShowStatus(_loadingStatus);
             CanReloadItems = false;
             await LoadData();
         }
 
-        private async Task LoadData()
+        protected async Task LoadData()
         {
 
             // MAKE A REQUEST TO LOAD DATA FROM DB
+            ShowTable();
         }
 
-        private async void AddItem()
-        {
-            // MAKE A REQUEST TO ADD NEW ITEM
-        }
+        protected abstract void AddItem();
 
-        private async void RemoveItem()
-        {
-            // MAKE A REQUEST TO REMOVE ITEM
-        }
+        protected abstract void RemoveItem();
 
-        private async void UpdateUser()
-        {
-            // MAKE A REQUEST TO UPDATE ITEM
-        }
+        protected abstract void UpdateUser();
 
-        private void ShowStatus(string statusText)
+        protected void ShowStatus(string statusText)
         {
             StatusTextValue = statusText;
             IsStatusTextVisible = true;
@@ -139,7 +138,7 @@ namespace PyaterochkaSimpleSystem.ViewModels
             IsTableVisible = true;
         }
 
-        private bool CanUpdateUser()
+        protected bool CanUpdateUser()
         {
             if (SelectedUser == null)
             {
@@ -151,7 +150,7 @@ namespace PyaterochkaSimpleSystem.ViewModels
             }
         }
 
-        private bool CanRemoveItem()
+        protected bool CanRemoveItem()
         {
             if (SelectedUser == null)
             {
@@ -163,8 +162,9 @@ namespace PyaterochkaSimpleSystem.ViewModels
             }
         }
 
-        private void UpdateCommands()
+        protected void UpdateCommands()
         {
+
             ((RelayCommand)RemoveCommand).RaiseCanExecuteChanged();
             ((RelayCommand)UpdateCommand).RaiseCanExecuteChanged();
         }

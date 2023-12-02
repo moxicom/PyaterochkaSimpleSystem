@@ -28,8 +28,7 @@
             Margin="30,0"
             HorizontalAlignment="Right"
             Command="{Binding HomeBtnCommand}"
-            Content="На главную"
-            IsEnabled="{Binding HomeBtnEnabled}" />
+            Content="На главную" />
 
         <ContentControl Grid.Row="1" Content="{Binding CurrentVM}">
             <ContentControl.Resources>
