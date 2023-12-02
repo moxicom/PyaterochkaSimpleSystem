@@ -22,7 +22,7 @@ namespace PyaterochkaSimpleSystem.ViewModels
         public MainWindowVM()
         {
             HomeBtnCommand = new RelayCommand(OpenHome);
-            TestCommand = new RelayCommand(OpenCategory);
+            TestCommand = new RelayCommand<int>(OpenCategory);
             OpenHome();
         }
 
@@ -45,6 +45,6 @@ namespace PyaterochkaSimpleSystem.ViewModels
 
         // Methods
         public void OpenHome() => CurrentVM = new CategoriesVM(this);
-        public void OpenCategory() => CurrentVM = new ProductsVM(this);
+        public void OpenCategory(int id) => CurrentVM = new ProductsVM(id, this);
     }
 }

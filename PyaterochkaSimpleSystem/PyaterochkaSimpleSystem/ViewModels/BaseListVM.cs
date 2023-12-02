@@ -30,11 +30,11 @@ namespace PyaterochkaSimpleSystem.ViewModels
             RemoveCommand = new RelayCommand(RemoveItem, CanRemoveItem);
             UpdateCommand = new RelayCommand(UpdateUser, CanUpdateUser);
             ReloadItemsCommand = new RelayCommand(ReloadData, CanReloadItems);
-            if (listType == ListTypes.Products)
-            {
-                IsStatusTextVisible = true;
-                StatusTextValue = "PRODUCTSSSS";
-            }
+            //if (listType == ListTypes.Products)
+            //{
+            //    IsStatusTextVisible = true;
+            //    StatusTextValue = "PRODUCTSSSS";
+            //}
         }
 
         // Properties

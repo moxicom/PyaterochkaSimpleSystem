@@ -48,7 +48,7 @@
                     <views:CategoriesView />
                 </DataTemplate>
                 <DataTemplate DataType="{x:Type viewmodels:ProductsVM}">
-                    <views:CategoriesView />
+                    <views:ProductsVeiw />
                 </DataTemplate>
             </ContentControl.Resources>
         </ContentControl>

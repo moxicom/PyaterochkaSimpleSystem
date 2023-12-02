@@ -10,10 +10,12 @@ namespace PyaterochkaSimpleSystem.ViewModels
 {
     internal class ProductsVM : BaseListVM<Product>
     {
+        private readonly int _id;
 
-        public ProductsVM(MainWindowVM mainWindowVM) : base(ListTypes.Products, mainWindowVM)
+        public ProductsVM(int id, MainWindowVM mainWindowVM) : base(ListTypes.Products, mainWindowVM)
         {
-            
+            _id = id;
+            ReloadData();
         }
 
         protected override void AddItem()
