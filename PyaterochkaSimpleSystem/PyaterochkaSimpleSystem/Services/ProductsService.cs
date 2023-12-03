@@ -107,5 +107,28 @@ namespace PyaterochkaSimpleSystem.Services
                 return OperationResult<bool>.Failure(ex);
             }
         }
+
+        public async Task<OperationResult<bool>> DeleteProductsByCategoryIdAsync(int categoryId)
+        {
+            try
+            {
+                using (var context = new AppDbContext())
+                {
+                    var productsToDelete = await context.Products
+                        .Where(p => p.CategoryId == categoryId)
+                        .ToListAsync();
+
+                    context.Products.RemoveRange(productsToDelete);
+
+                    await context.SaveChangesAsync();
+
+                    return OperationResult<bool>.Success(true);
+                }
+            }
+            catch (Exception ex)
+            {
+                return OperationResult<bool>.Failure(ex);
+            }
+        }
     }
 }

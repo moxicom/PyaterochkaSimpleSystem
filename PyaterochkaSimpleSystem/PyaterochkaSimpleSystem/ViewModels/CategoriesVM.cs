@@ -49,20 +49,19 @@ namespace PyaterochkaSimpleSystem.ViewModels
             return result;
         }
 
-        protected override async void AddItem()
+        protected override Task<OperationResult<bool>> DeleteDataRequest()
         {
             throw new NotImplementedException();
         }
 
-        protected override async void RemoveItem()
+        protected override Task<OperationResult<bool>> UpdateDataRequest()
         {
             throw new NotImplementedException();
         }
 
-        protected override async void UpdateUser()
+        protected override Task<OperationResult<bool>> InsertDataRequest()
         {
             throw new NotImplementedException();
         }
-
     }
 }

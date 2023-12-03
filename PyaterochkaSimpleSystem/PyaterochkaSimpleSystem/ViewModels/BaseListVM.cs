@@ -1,6 +1,7 @@
 ﻿using GalaSoft.MvvmLight.Command;
 using PyaterochkaSimpleSystem.Enums;
 using PyaterochkaSimpleSystem.Models;
+using PyaterochkaSimpleSystem.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -34,7 +35,7 @@ namespace PyaterochkaSimpleSystem.ViewModels
             _items = new ObservableCollection<T>();
             AddCommand = new RelayCommand(AddItem);
             RemoveCommand = new RelayCommand(RemoveItem, CanProcessItem);
-            UpdateCommand = new RelayCommand(UpdateUser, CanProcessItem);
+            UpdateCommand = new RelayCommand(UpdateItem, CanProcessItem);
             ReloadItemsCommand = new RelayCommand(ReloadData, CanReloadItems);
         }
 
@@ -111,10 +112,10 @@ namespace PyaterochkaSimpleSystem.ViewModels
         {
             Items = null;
             CanReloadItems = false;
-            await LoadData();
+            LoadData();
         }
 
-        protected async Task LoadData()
+        protected async void LoadData()
         {
             ShowStatus(_loadingStatus);
             var result = await LoadDataRequest();
@@ -128,13 +129,25 @@ namespace PyaterochkaSimpleSystem.ViewModels
             CanReloadItems = true;
         }
 
-        protected abstract void AddItem();
+        protected async void AddItem()
+        {
 
-        protected abstract void RemoveItem();
+        }
 
-        protected abstract void UpdateUser();
+        protected async void RemoveItem()
+        {
+            
+        }
+
+        protected async void UpdateItem()
+        {
+
+        }
 
         protected abstract Task<OperationResult<ObservableCollection<T>>> LoadDataRequest();
+        protected abstract Task<OperationResult<bool>> DeleteDataRequest();
+        protected abstract Task<OperationResult<bool>> UpdateDataRequest();
+        protected abstract Task<OperationResult<bool>> InsertDataRequest();
 
         protected void ShowStatus(string statusText)
         {

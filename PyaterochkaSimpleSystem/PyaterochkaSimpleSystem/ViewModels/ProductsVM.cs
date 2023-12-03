@@ -21,17 +21,12 @@ namespace PyaterochkaSimpleSystem.ViewModels
             ReloadData();
         }
 
-        protected override void AddItem()
+        protected override Task<OperationResult<bool>> DeleteDataRequest()
         {
             throw new NotImplementedException();
         }
 
-        protected override void RemoveItem()
-        {
-            throw new NotImplementedException();
-        }
-
-        protected override void UpdateUser()
+        protected override Task<OperationResult<bool>> InsertDataRequest()
         {
             throw new NotImplementedException();
         }
@@ -41,6 +36,11 @@ namespace PyaterochkaSimpleSystem.ViewModels
             var service = new ProductsService();
             var result = await Task.Run( () => service.GetProductsAsync(_id));
             return result;
+        }
+
+        protected override Task<OperationResult<bool>> UpdateDataRequest()
+        {
+            throw new NotImplementedException();
         }
     }
 }
