@@ -24,7 +24,7 @@ namespace PyaterochkaSimpleSystem.Services
             {
                 using (var context = new AppDbContext())
                 {
-                    var categories = await Task.Run(() => context.Categories.ToListAsync());
+                    var categories = await context.Categories.ToListAsync();
                     return OperationResult<ObservableCollection<Category>>.Success(new ObservableCollection<Category>(categories));
                 }
             }

@@ -1,11 +1,13 @@
 ﻿using PyaterochkaSimpleSystem.Enums;
 using PyaterochkaSimpleSystem.Models;
+using PyaterochkaSimpleSystem.Services;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace PyaterochkaSimpleSystem.ViewModels
 {
@@ -34,9 +36,11 @@ namespace PyaterochkaSimpleSystem.ViewModels
             throw new NotImplementedException();
         }
 
-        protected override Task<OperationResult<ObservableCollection<Product>>> LoadDataRequest()
+        protected override async Task<OperationResult<ObservableCollection<Product>>> LoadDataRequest()
         {
-            throw new NotImplementedException();
+            var service = new ProductsService();
+            var result = await Task.Run( () => service.GetProductsAsync(_id));
+            return result;
         }
     }
 }

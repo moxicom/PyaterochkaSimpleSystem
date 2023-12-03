@@ -6,26 +6,29 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace PyaterochkaSimpleSystem.Services
 {
     internal class ProductsService
     {
-        public async Task<OperationResult<List<Product>>> GetProductsAsync(Product product)
+        public async Task<OperationResult<ObservableCollection<Product>>> GetProductsAsync(int Category_id)
         {
             try
             {
                 using (var context = new AppDbContext())
                 {
-                    var products = await context.Products.ToListAsync();
+                    var products = await context.Products
+                        .Where(p => p.CategoryId == Category_id)
+                        .ToListAsync();
 
-                    return OperationResult<List<Product>>.Success(products);
+                    return OperationResult<ObservableCollection<Product>>.Success(new ObservableCollection<Product>(products));
                 }
             }
             catch (Exception ex)
             {
-                return OperationResult<List<Product>>.Failure(ex);
+                return OperationResult<ObservableCollection<Product>>.Failure(ex);
             }
         }
 

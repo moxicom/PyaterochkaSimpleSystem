@@ -30,6 +30,7 @@ namespace PyaterochkaSimpleSystem.ViewModels
         // Constructor
         public BaseListVM(ListTypes listType, MainWindowVM mainWindowVM)
         {
+            MainWindowVM = mainWindowVM;
             _items = new ObservableCollection<T>();
             AddCommand = new RelayCommand(AddItem);
             RemoveCommand = new RelayCommand(RemoveItem, CanProcessItem);
@@ -124,6 +125,7 @@ namespace PyaterochkaSimpleSystem.ViewModels
             }
             Items = result.Result;
             ShowTable();
+            CanReloadItems = true;
         }
 
         protected abstract void AddItem();

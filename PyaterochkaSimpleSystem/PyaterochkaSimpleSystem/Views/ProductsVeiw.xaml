@@ -60,22 +60,19 @@
                         HorizontalAlignment="Center"
                         VerticalAlignment="Bottom"
                         Command="{Binding RemoveCommand}"
-                        Content="Удалить"
-                        IsEnabled="{Binding IsRemoveEnabled}" />
+                        Content="Удалить" />
                     <Button
                         Margin="10,0,10,10"
                         HorizontalAlignment="Right"
                         VerticalAlignment="Bottom"
                         Command="{Binding UpdateCommand}"
-                        Content="Изменить"
-                        IsEnabled="{Binding IsEditEnabled}" />
+                        Content="Изменить" />
                     <Button
                         Margin="10,0,10,10"
                         HorizontalAlignment="Right"
                         VerticalAlignment="Bottom"
-                        Command="{Binding UpdateCommand}"
-                        Content="Открыть"
-                        IsEnabled="{Binding IsEditEnabled}" />
+                        Command="{Binding ReloadItemsCommand}"
+                        Content="Перезагрузить" />
                 </StackPanel>
             </StackPanel>
         </Grid>
