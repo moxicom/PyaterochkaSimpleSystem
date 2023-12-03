@@ -49,9 +49,17 @@ namespace PyaterochkaSimpleSystem.ViewModels
             return result;
         }
 
-        protected override Task<OperationResult<bool>> DeleteDataRequest()
+        protected override async Task<OperationResult<bool>> RemoveDataRequest()
         {
-            throw new NotImplementedException();
+            var categoriesService = new CategoriesService();
+            var productsService = new ProductsService();
+            var result = await productsService.DeleteProductsByCategoryIdAsync(SelectedItem!.Id);
+            if (result.Error != null)
+            {
+                return result;
+            }
+            result = await categoriesService.DeleteCategoryAsync(SelectedItem!.Id);
+            return result;
         }
 
         protected override Task<OperationResult<bool>> UpdateDataRequest()

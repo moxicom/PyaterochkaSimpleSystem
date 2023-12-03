@@ -136,7 +136,17 @@ namespace PyaterochkaSimpleSystem.ViewModels
 
         protected async void RemoveItem()
         {
-            
+            var confirmationDialog = new ConfirmationDialog();
+            var message = $"Вы уверены, что хотите удалить выбранный объект?";
+            if (await confirmationDialog.ShowConfirmationDialog(message) == false)
+                return;
+            ShowStatus(_loadingStatus);
+            var result = await RemoveDataRequest();
+            if (result.Error != null)
+            {
+                MessageBox.Show("Произошла ошибка удаления");
+            }
+            ReloadData();
         }
 
         protected async void UpdateItem()
@@ -145,7 +155,7 @@ namespace PyaterochkaSimpleSystem.ViewModels
         }
 
         protected abstract Task<OperationResult<ObservableCollection<T>>> LoadDataRequest();
-        protected abstract Task<OperationResult<bool>> DeleteDataRequest();
+        protected abstract Task<OperationResult<bool>> RemoveDataRequest();
         protected abstract Task<OperationResult<bool>> UpdateDataRequest();
         protected abstract Task<OperationResult<bool>> InsertDataRequest();
 

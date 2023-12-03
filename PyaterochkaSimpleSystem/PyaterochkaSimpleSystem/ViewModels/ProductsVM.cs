@@ -21,9 +21,11 @@ namespace PyaterochkaSimpleSystem.ViewModels
             ReloadData();
         }
 
-        protected override Task<OperationResult<bool>> DeleteDataRequest()
+        protected override async Task<OperationResult<bool>> RemoveDataRequest()
         {
-            throw new NotImplementedException();
+            var service = new ProductsService();
+            var result = await service.DeleteProductAsync(SelectedItem!.Id);
+            return result;
         }
 
         protected override Task<OperationResult<bool>> InsertDataRequest()
