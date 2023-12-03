@@ -18,6 +18,7 @@ namespace PyaterochkaSimpleSystem.ViewModels
         public ProductsVM(int id, MainWindowVM mainWindowVM) : base(ListTypes.Products, mainWindowVM)
         {
             _id = id;
+            ItemDialogType = ItemDialogType.Product;
             ReloadData();
         }
 
@@ -28,9 +29,18 @@ namespace PyaterochkaSimpleSystem.ViewModels
             return result;
         }
 
-        protected override Task<OperationResult<bool>> InsertDataRequest(ItemDialogData dialogData)
+        protected override async Task<OperationResult<bool>> InsertDataRequest(ItemDialogData dialogData)
         {
-            throw new NotImplementedException();
+            var service = new ProductsService();
+            var product = new Product
+            {
+                Name = dialogData.Name,
+                Amount = dialogData.Amount,
+                CategoryId = _id,
+                DateUpdated = DateTime.UtcNow,
+            };
+            var result = await service.InsertProductAsync(product);
+            return result;
         }
 
         protected override async Task<OperationResult<ObservableCollection<Product>>> LoadDataRequest()

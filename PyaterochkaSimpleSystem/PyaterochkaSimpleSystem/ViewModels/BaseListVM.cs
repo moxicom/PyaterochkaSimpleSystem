@@ -146,7 +146,7 @@ namespace PyaterochkaSimpleSystem.ViewModels
             var result = await InsertDataRequest(dialogData);
             if (result.Error != null)
             {
-                ShowStatus(_requestErrorStatus);
+                MessageBox.Show(result.Error.ToString());
             }
             ReloadData();
         }
