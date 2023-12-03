@@ -9,7 +9,8 @@ namespace PyaterochkaSimpleSystem.Models
 {
 
     /// <summary>
-    ///
+    ///  Add-Migration <NAME>
+    ///  Update-Database
     /// </summary>
     internal class AppDbContext : DbContext
     {
