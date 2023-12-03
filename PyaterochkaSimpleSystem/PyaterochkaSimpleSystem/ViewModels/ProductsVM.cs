@@ -28,7 +28,7 @@ namespace PyaterochkaSimpleSystem.ViewModels
             return result;
         }
 
-        protected override Task<OperationResult<bool>> InsertDataRequest()
+        protected override Task<OperationResult<bool>> InsertDataRequest(ItemDialogData dialogData)
         {
             throw new NotImplementedException();
         }

@@ -17,9 +17,9 @@ namespace PyaterochkaSimpleSystem.Views
     /// <summary>
     /// Логика взаимодействия для ItemDialog.xaml
     /// </summary>
-    public partial class ItemDialog : Window
+    public partial class ItemDialogView : Window
     {
-        public ItemDialog()
+        public ItemDialogView()
         {
             InitializeComponent();
         }

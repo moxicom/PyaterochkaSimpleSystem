@@ -67,9 +67,15 @@ namespace PyaterochkaSimpleSystem.ViewModels
             throw new NotImplementedException();
         }
 
-        protected override Task<OperationResult<bool>> InsertDataRequest()
+        protected override async Task<OperationResult<bool>> InsertDataRequest(ItemDialogData dialogData)
         {
-            throw new NotImplementedException();
+            var categoriesService = new CategoriesService();
+            var category = new Category
+            {
+                Name = dialogData.Name,
+            };
+            var result = await categoriesService.InsertCategoryAsync(category);
+            return result;
         }
     }
 }

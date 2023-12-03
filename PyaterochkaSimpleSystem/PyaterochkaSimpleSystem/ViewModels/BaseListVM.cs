@@ -2,6 +2,7 @@
 using PyaterochkaSimpleSystem.Enums;
 using PyaterochkaSimpleSystem.Models;
 using PyaterochkaSimpleSystem.Utilities;
+using PyaterochkaSimpleSystem.Views;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -44,6 +45,7 @@ namespace PyaterochkaSimpleSystem.ViewModels
         public ICommand RemoveCommand { get; }
         public ICommand UpdateCommand { get; }
         public ICommand ReloadItemsCommand { get; }
+        public ItemDialogType ItemDialogType { get; set; }
         protected MainWindowVM MainWindowVM { get; }
 
         public ObservableCollection<T> Items
@@ -108,6 +110,11 @@ namespace PyaterochkaSimpleSystem.ViewModels
         }
 
         // Methods
+        protected abstract Task<OperationResult<ObservableCollection<T>>> LoadDataRequest();
+        protected abstract Task<OperationResult<bool>> RemoveDataRequest();
+        protected abstract Task<OperationResult<bool>> UpdateDataRequest();
+        protected abstract Task<OperationResult<bool>> InsertDataRequest(ItemDialogData dialogData);
+
         protected async void ReloadData()
         {
             Items = null;
@@ -131,7 +138,17 @@ namespace PyaterochkaSimpleSystem.ViewModels
 
         protected async void AddItem()
         {
-
+            var dialogData = ShowItemDialog(ItemDialogMode.Insert);
+            if (dialogData == null)
+            {
+                return;
+            }
+            var result = await InsertDataRequest(dialogData);
+            if (result.Error != null)
+            {
+                ShowStatus(_requestErrorStatus);
+            }
+            ReloadData();
         }
 
         protected async void RemoveItem()
@@ -153,11 +170,6 @@ namespace PyaterochkaSimpleSystem.ViewModels
         {
 
         }
-
-        protected abstract Task<OperationResult<ObservableCollection<T>>> LoadDataRequest();
-        protected abstract Task<OperationResult<bool>> RemoveDataRequest();
-        protected abstract Task<OperationResult<bool>> UpdateDataRequest();
-        protected abstract Task<OperationResult<bool>> InsertDataRequest();
 
         protected void ShowStatus(string statusText)
         {
@@ -181,6 +193,57 @@ namespace PyaterochkaSimpleSystem.ViewModels
             else
             {
                 return true;
+            }
+        }
+
+        private ItemDialogData ShowItemDialog(ItemDialogMode mode, ItemDialogData? itemData = null)
+        {
+            var additionDialog = new ItemDialogView();
+            var itemDialogVM = new ItemDialogVM(ItemDialogType, mode);
+            additionDialog.DataContext = itemDialogVM;
+
+            if (itemData != null)
+            {
+                itemDialogVM.Name = itemData.Name;
+                itemDialogVM.Description = itemData.Description;
+                itemDialogVM.Amount = itemData.Amount;
+            }
+
+            var dialogData = new ItemDialogData();
+            string errorText = "";
+            bool hasData = false;
+
+            itemDialogVM.DialogClosing += (sender, data) =>
+            {
+                if (data != null)
+                {
+                    hasData = true;
+                    if (data.Name == "")
+                    {
+                        errorText += "Название не может быть пустым\n";
+                    }
+                    if (data.Description == "" && ItemDialogType == ItemDialogType.Product)
+                    {
+                        errorText += "Описание не может быть пустым\n";
+                    }
+                    dialogData = data;
+                }
+                additionDialog.Close();
+            };
+
+            additionDialog.ShowDialog();
+
+            if (!hasData)
+                return null;
+
+            if (errorText != "")
+            {
+                MessageBox.Show(errorText, "Ошибка добавления", MessageBoxButton.OK, MessageBoxImage.Error);
+                return null;
+            }
+            else
+            {
+                return dialogData;
             }
         }
 
