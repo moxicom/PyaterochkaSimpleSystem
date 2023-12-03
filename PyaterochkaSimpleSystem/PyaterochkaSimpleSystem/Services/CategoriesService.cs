@@ -53,28 +53,26 @@ namespace PyaterochkaSimpleSystem.Services
             }
         }
 
-        public async Task<OperationResult<bool>> UpdateCategoryAsync(int categoryId, string newName)
+        public async Task<OperationResult<bool>> UpdateCategoryAsync(Category category)
         {
             try
             {
                 using (var context = new AppDbContext())
                 {
-                    var existingCategory = await context.Categories.FindAsync(categoryId);
+                    var existingCategory = await context.Categories.FindAsync(category.Id);
 
-                    if (existingCategory != null)
+                    if (existingCategory!= null)
                     {
-                        existingCategory.Name = newName;
-
-                        // Save changes to the database
+                        existingCategory.Name = category.Name;
                         await context.SaveChangesAsync();
                     }
                     else
                     {
                         return OperationResult<bool>.Failure(new Exception("Category not found"));
                     }
-                }
 
-                return OperationResult<bool>.Success(true);
+                    return OperationResult<bool>.Success(true);
+                }
             }
             catch (Exception ex)
             {
