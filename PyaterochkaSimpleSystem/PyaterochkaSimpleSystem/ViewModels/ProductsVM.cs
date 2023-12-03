@@ -35,6 +35,7 @@ namespace PyaterochkaSimpleSystem.ViewModels
             var product = new Product
             {
                 Name = dialogData.Name,
+                Description = dialogData.Description,
                 Amount = dialogData.Amount,
                 CategoryId = _id,
                 DateUpdated = DateTime.UtcNow,
@@ -50,9 +51,36 @@ namespace PyaterochkaSimpleSystem.ViewModels
             return result;
         }
 
-        protected override Task<OperationResult<bool>> UpdateDataRequest()
+        protected override async Task<OperationResult<bool>> UpdateDataRequest(ItemDialogData itemDialogData)
         {
-            throw new NotImplementedException();
+            var service = new ProductsService();
+            var product = new Product
+            {
+                Id = SelectedItem!.Id,
+                Name = itemDialogData.Name,
+                Description = itemDialogData.Description,
+                Amount = itemDialogData.Amount
+            };
+            var result = await service.UpdateProductAsync(product);
+            return result;
+        }
+
+        protected override ItemDialogData GetItemData()
+        {
+            if (Items == null)
+                return new ItemDialogData();
+
+            Product? product = Items.FirstOrDefault(p => p.Id == SelectedItem!.Id);
+
+            if (product == null)
+                return new ItemDialogData();
+
+            return new ItemDialogData
+            {
+                Name = product.Name,
+                Description = product.Description,
+                Amount = product.Amount
+            };
         }
     }
 }

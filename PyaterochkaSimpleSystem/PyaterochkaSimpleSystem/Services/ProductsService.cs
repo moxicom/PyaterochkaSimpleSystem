@@ -22,7 +22,11 @@ namespace PyaterochkaSimpleSystem.Services
                     var products = await context.Products
                         .Where(p => p.CategoryId == Category_id)
                         .ToListAsync();
-
+                    TimeZoneInfo desiredTimeZone = TimeZoneInfo.FindSystemTimeZoneById("Russian Standard Time");
+                    foreach (var product in products)
+                    {
+                        product.DateUpdated = TimeZoneInfo.ConvertTimeFromUtc(product.DateUpdated, desiredTimeZone);
+                    }
                     return OperationResult<ObservableCollection<Product>>.Success(new ObservableCollection<Product>(products));
                 }
             }
@@ -44,7 +48,8 @@ namespace PyaterochkaSimpleSystem.Services
                     {
                         existingProduct.Name = product.Name;
                         existingProduct.Description = product.Description;
-                        existingProduct.DateUpdated = DateTime.Now;
+                        existingProduct.Amount = product.Amount;
+                        existingProduct.DateUpdated = DateTime.UtcNow;
                         await context.SaveChangesAsync();
                     }
                     else

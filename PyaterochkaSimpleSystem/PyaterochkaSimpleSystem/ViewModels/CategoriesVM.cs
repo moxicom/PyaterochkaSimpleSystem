@@ -62,7 +62,7 @@ namespace PyaterochkaSimpleSystem.ViewModels
             return result;
         }
 
-        protected override Task<OperationResult<bool>> UpdateDataRequest()
+        protected override Task<OperationResult<bool>> UpdateDataRequest(ItemDialogData dialogData)
         {
             throw new NotImplementedException();
         }
@@ -76,6 +76,22 @@ namespace PyaterochkaSimpleSystem.ViewModels
             };
             var result = await categoriesService.InsertCategoryAsync(category);
             return result;
+        }
+
+        protected override ItemDialogData GetItemData()
+        {
+            if (Items == null)
+                return new ItemDialogData();
+
+            Category? category = Items.FirstOrDefault(category => category.Id == SelectedItem!.Id);
+
+            if (category == null)
+                return new ItemDialogData();
+
+            return new ItemDialogData
+            {
+                Name = category.Name
+            };
         }
     }
 }

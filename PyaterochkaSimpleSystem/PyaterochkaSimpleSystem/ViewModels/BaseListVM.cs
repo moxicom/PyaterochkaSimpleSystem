@@ -112,8 +112,9 @@ namespace PyaterochkaSimpleSystem.ViewModels
         // Methods
         protected abstract Task<OperationResult<ObservableCollection<T>>> LoadDataRequest();
         protected abstract Task<OperationResult<bool>> RemoveDataRequest();
-        protected abstract Task<OperationResult<bool>> UpdateDataRequest();
+        protected abstract Task<OperationResult<bool>> UpdateDataRequest(ItemDialogData dialogData);
         protected abstract Task<OperationResult<bool>> InsertDataRequest(ItemDialogData dialogData);
+        protected abstract ItemDialogData GetItemData();
 
         protected async void ReloadData()
         {
@@ -168,7 +169,18 @@ namespace PyaterochkaSimpleSystem.ViewModels
 
         protected async void UpdateItem()
         {
-
+            var data = GetItemData();   
+            var dialogData = ShowItemDialog(ItemDialogMode.Update, data);
+            if (dialogData == null)
+            {
+                return;
+            }
+            var result = await UpdateDataRequest(dialogData);
+            if (result.Error != null)
+            {
+                MessageBox.Show(result.Error.ToString());
+            }
+            ReloadData();
         }
 
         protected void ShowStatus(string statusText)
