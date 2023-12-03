@@ -1,4 +1,5 @@
-﻿using PyaterochkaSimpleSystem.Enums;
+﻿using GalaSoft.MvvmLight.Command;
+using PyaterochkaSimpleSystem.Enums;
 using PyaterochkaSimpleSystem.Models;
 using PyaterochkaSimpleSystem.Services;
 using System;
@@ -7,6 +8,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace PyaterochkaSimpleSystem.ViewModels
 {
@@ -19,12 +21,26 @@ namespace PyaterochkaSimpleSystem.ViewModels
         public CategoriesVM(MainWindowVM mainWindowVM) : base(ListTypes.Categories, mainWindowVM) 
         {
             _service = new CategoriesService();
+            OpenCommand = new RelayCommand(OpenCategory, CanProcessItem);
+            CommandsUpdated += OnCommandsUpdated;
             ReloadData();
         }
 
         // Properties
 
+        public ICommand OpenCommand { get; }
+
         // Methods
+
+        private void OpenCategory()
+        {
+            MainWindowVM.OpenCategory(SelectedItem!.Id);
+        }
+
+        private void OnCommandsUpdated(object sender, EventArgs e)
+        {
+            ((RelayCommand)OpenCommand).RaiseCanExecuteChanged();
+        }
 
         protected override async Task<OperationResult<ObservableCollection<Category>>> LoadDataRequest()
         {

@@ -23,14 +23,12 @@ namespace PyaterochkaSimpleSystem.ViewModels
         public MainWindowVM()
         {
             HomeBtnCommand = new RelayCommand(OpenHome);
-            TestCommand = new RelayCommand<int>(OpenCategory);
             Application.Current.MainWindow.Loaded += MainWindow_Loaded;
             OpenHome();
         }
 
         // Properties
         public ICommand HomeBtnCommand { get; }
-        public ICommand TestCommand { get; }
 
         public ViewModelBase CurrentVM
         {

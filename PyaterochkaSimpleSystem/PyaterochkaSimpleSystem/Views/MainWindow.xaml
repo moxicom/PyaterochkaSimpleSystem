@@ -30,14 +30,6 @@
                 HorizontalAlignment="Right"
                 Command="{Binding HomeBtnCommand}"
                 Content="На главную" />
-
-            <Button
-                Width="150"
-                Height="30"
-                Margin="30,0"
-                HorizontalAlignment="Right"
-                Command="{Binding ReloadItemsCommand}"
-                Content="Перезагрузить" />
         </StackPanel>
 
 

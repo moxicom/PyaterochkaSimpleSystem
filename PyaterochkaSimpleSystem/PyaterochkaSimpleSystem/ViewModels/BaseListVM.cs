@@ -25,19 +25,16 @@ namespace PyaterochkaSimpleSystem.ViewModels
         private bool _isTableVisible;
         private ObservableCollection<T> _items;
 
+        protected event EventHandler CommandsUpdated;
+
         // Constructor
         public BaseListVM(ListTypes listType, MainWindowVM mainWindowVM)
         {
             _items = new ObservableCollection<T>();
             AddCommand = new RelayCommand(AddItem);
-            RemoveCommand = new RelayCommand(RemoveItem, CanRemoveItem);
-            UpdateCommand = new RelayCommand(UpdateUser, CanUpdateItem);
+            RemoveCommand = new RelayCommand(RemoveItem, CanProcessItem);
+            UpdateCommand = new RelayCommand(UpdateUser, CanProcessItem);
             ReloadItemsCommand = new RelayCommand(ReloadData, CanReloadItems);
-            //if (listType == ListTypes.Products)
-            //{
-            //    IsStatusTextVisible = true;
-            //    StatusTextValue = "PRODUCTSSSS";
-            //}
         }
 
         // Properties
@@ -45,7 +42,7 @@ namespace PyaterochkaSimpleSystem.ViewModels
         public ICommand RemoveCommand { get; }
         public ICommand UpdateCommand { get; }
         public ICommand ReloadItemsCommand { get; }
-        protected MainWindowVM mainWindowVM { get; }
+        protected MainWindowVM MainWindowVM { get; }
 
         public ObservableCollection<T> Items
         {
@@ -150,19 +147,7 @@ namespace PyaterochkaSimpleSystem.ViewModels
             IsTableVisible = true;
         }
 
-        protected bool CanUpdateItem()
-        {
-            if (SelectedItem == null)
-            {
-                return false;
-            }
-            else
-            {
-                return true;
-            }
-        }
-
-        protected bool CanRemoveItem()
+        protected bool CanProcessItem()
         {
             if (SelectedItem == null)
             {
@@ -179,6 +164,8 @@ namespace PyaterochkaSimpleSystem.ViewModels
 
             ((RelayCommand)RemoveCommand).RaiseCanExecuteChanged();
             ((RelayCommand)UpdateCommand).RaiseCanExecuteChanged();
+
+            CommandsUpdated?.Invoke(this, EventArgs.Empty);
         }
     }
 }
