@@ -39,6 +39,7 @@
                             <GridViewColumn DisplayMemberBinding="{Binding Name}" Header="Название" />
                             <GridViewColumn DisplayMemberBinding="{Binding Description}" Header="Описание" />
                             <GridViewColumn DisplayMemberBinding="{Binding Amount}" Header="Количество" />
+                            <GridViewColumn DisplayMemberBinding="{Binding ShelfLife}" Header="Срок годности" />
                             <GridViewColumn DisplayMemberBinding="{Binding DateUpdated}" Header="Последнее обновление" />
                         </GridView>
                     </ListView.View>

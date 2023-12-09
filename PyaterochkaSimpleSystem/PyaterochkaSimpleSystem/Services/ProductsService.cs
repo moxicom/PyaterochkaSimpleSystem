@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace PyaterochkaSimpleSystem.Services
 {
@@ -46,9 +47,11 @@ namespace PyaterochkaSimpleSystem.Services
 
                     if (existingProduct != null)
                     {
+                        //MessageBox.Show(product.ShelfLife.ToString());
                         existingProduct.Name = product.Name;
                         existingProduct.Description = product.Description;
                         existingProduct.Amount = product.Amount;
+                        existingProduct.ShelfLife = product.ShelfLife;
                         existingProduct.DateUpdated = DateTime.UtcNow;
                         await context.SaveChangesAsync();
                     }

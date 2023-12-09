@@ -6,7 +6,7 @@
     xmlns:local="clr-namespace:PyaterochkaSimpleSystem.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
-    Title="ItemDialog"
+    Title="Диалоговое окно"
     Width="600"
     Height="450"
     ResizeMode="NoResize"
@@ -83,6 +83,8 @@
                     Visibility="{Binding IsProductPropVisible, Converter={StaticResource BooleanToVisibilityConverter}}"
                     Watermark="Ведите количество"
                     Value="{Binding Amount}" />
+                <DatePicker Text="{Binding SelectedDate, Mode=TwoWay}" Visibility="{Binding IsProductPropVisible, Converter={StaticResource BooleanToVisibilityConverter}}" />
+
             </StackPanel>
         </Grid>
 

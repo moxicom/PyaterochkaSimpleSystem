@@ -39,6 +39,7 @@ namespace PyaterochkaSimpleSystem.ViewModels
                 Amount = dialogData.Amount,
                 CategoryId = _id,
                 DateUpdated = DateTime.UtcNow,
+                ShelfLife = dialogData.SelectedDate,
             };
             var result = await service.InsertProductAsync(product);
             return result;
@@ -59,7 +60,8 @@ namespace PyaterochkaSimpleSystem.ViewModels
                 Id = SelectedItem!.Id,
                 Name = itemDialogData.Name,
                 Description = itemDialogData.Description,
-                Amount = itemDialogData.Amount
+                Amount = itemDialogData.Amount,
+                ShelfLife = itemDialogData.SelectedDate,
             };
             var result = await service.UpdateProductAsync(product);
             return result;
@@ -79,7 +81,8 @@ namespace PyaterochkaSimpleSystem.ViewModels
             {
                 Name = product.Name,
                 Description = product.Description,
-                Amount = product.Amount
+                Amount = product.Amount,
+                SelectedDate = product.ShelfLife,
             };
         }
     }

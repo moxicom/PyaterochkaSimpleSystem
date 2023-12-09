@@ -64,6 +64,9 @@ namespace PyaterochkaSimpleSystem.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<DateOnly>("ShelfLife")
+                        .HasColumnType("date");
+
                     b.HasKey("Id");
 
                     b.HasIndex("CategoryId");

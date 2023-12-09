@@ -219,6 +219,10 @@ namespace PyaterochkaSimpleSystem.ViewModels
                 itemDialogVM.Name = itemData.Name;
                 itemDialogVM.Description = itemData.Description;
                 itemDialogVM.Amount = itemData.Amount;
+                itemDialogVM.SelectedDate = itemData.SelectedDate.ToString("dd.MM.yyyy"); ;
+            } else
+            {
+                itemDialogVM.SelectedDate = DateTime.Now.ToString("dd.MM.yyyy");
             }
 
             var dialogData = new ItemDialogData();
@@ -238,6 +242,7 @@ namespace PyaterochkaSimpleSystem.ViewModels
                     {
                         errorText += "Описание не может быть пустым\n";
                     }
+
                     dialogData = data;
                 }
                 additionDialog.Close();

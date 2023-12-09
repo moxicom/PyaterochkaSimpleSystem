@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
 namespace PyaterochkaSimpleSystem.ViewModels
@@ -18,6 +19,7 @@ namespace PyaterochkaSimpleSystem.ViewModels
         private string _description;
         private int _amount;
         private bool _isProductPropVisible;
+        private string _selectedDate;
 
         public event EventHandler<ItemDialogData>? DialogClosing; // item or category
 
@@ -85,16 +87,39 @@ namespace PyaterochkaSimpleSystem.ViewModels
             }
         }
 
+        public string SelectedDate
+        {
+            get => _selectedDate;
+            set
+            {
+                _selectedDate = value;
+                //MessageBox.Show(_selectedDate.ToString());
+                OnPropertyChanged(nameof(SelectedDate));
+            }
+        }
+
         // Methods
         private void OkButtonClickHandler()
         {
-            var data = new ItemDialogData
+            
+            if (DateTime.TryParse(SelectedDate, out DateTime dateTime))
             {
-                Name = _name,
-                Description = _description,
-                Amount = _amount,
-            };
-            DialogClosing?.Invoke(this, data);
+                DateOnly _tempDate = DateOnly.FromDateTime(dateTime);
+                var data = new ItemDialogData
+                {
+                    Name = _name,
+                    Description = _description,
+                    Amount = _amount,
+                    SelectedDate = _tempDate,
+                };
+                DialogClosing?.Invoke(this, data);
+            }
+
+            else
+            {
+                MessageBox.Show($"Некорректное значение даты: {SelectedDate}");
+                DialogClosing?.Invoke(this, null);
+            }
         }
 
         private void CancelButtonClickHandler()

@@ -7,7 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:viewmodels="clr-namespace:PyaterochkaSimpleSystem.ViewModels"
     xmlns:views="clr-namespace:PyaterochkaSimpleSystem.Views"
-    Title="MainWindow"
+    Title="Система управления продуктами"
     Width="800"
     Height="550"
     ResizeMode="NoResize"
